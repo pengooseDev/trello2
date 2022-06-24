@@ -30,7 +30,7 @@ const Boards = styled.div`
 //key를 Index로 한 경우 버그 발생.
 function App() {
     const [data, setData] = useRecoilState(toDoState);
-    const [dragSFX] = useSound(dragSound);
+    const [dragSFX] = useSound(dragSound, {});
     const [dropSFX] = useSound(dropSound);
 
     const onDragEnd = (info: DropResult) => {
