@@ -1,6 +1,7 @@
 import { Droppable } from "react-beautiful-dnd";
 import DragabbleCard from "./DragabbleCard";
 import styled from "styled-components";
+import { useRef } from "react";
 
 const Wrapper = styled.div`
     padding: 10px;
@@ -47,9 +48,16 @@ const Area = styled.div<IInfo>`
 `;
 
 const Board = ({ toDos, boardId }: IBoardProps) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const onClick = () => {
+        inputRef.current?.focus();
+    };
+
     return (
         <Wrapper>
             <Title>{boardId}</Title>
+            <input ref={inputRef} placeholder="wirte To Do"></input>
+            <button onClick={onClick}>Click me</button>
             <Droppable droppableId={boardId}>
                 {/*snapshot의 prop에 isDragOver은 드래그하고 있는게 현재 Droppable에 왔는지 확인 가능. */}
                 {(provided, info) => (
