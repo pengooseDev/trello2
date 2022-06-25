@@ -26,6 +26,14 @@ const Title = styled.div`
     background: rgba(0, 0, 0, 0.7);
     color: whitesmoke;
     border-radius: 3px;
+
+    //Prevent to Dragging the text with CSS
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
 `;
 
 interface IInfo {

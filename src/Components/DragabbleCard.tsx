@@ -14,6 +14,14 @@ const Card = styled.div<{ isDragging: boolean }>`
     box-shadow: ${(props) =>
         props.isDragging ? "0px 0px 10px black" : "none"};
     transition: 0.2s ease-in-out;
+
+    //Prevent to Dragging the text with CSS
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently*/
 `;
 
 interface IDraggable {
