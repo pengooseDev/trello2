@@ -3,8 +3,8 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { toDoState } from "./atoms";
 import { useRecoilState } from "recoil";
 import Board from "./Components/Board";
-import useSound from "use-sound";
 
+import useSound from "use-sound";
 import dragSound from "./assets/audio/drag.mp3";
 import dropSound from "./assets/audio/drop.mp3";
 
@@ -37,13 +37,15 @@ function App() {
         console.log(info);
         dropSFX();
         const { destination, draggableId, source } = info;
+
         if (!destination) return;
         if (destination?.droppableId === source.droppableId) {
             //동일한 Board 내에 움직이는 경우.
             setData((prev) => {
                 const copyArray = [...prev[source.droppableId]];
+                const taskObj = copyArray[source.index];
                 copyArray.splice(source.index, 1);
-                copyArray.splice(destination?.index, 0, draggableId);
+                copyArray.splice(destination?.index, 0, taskObj);
 
                 return {
                     ...prev,
@@ -56,12 +58,10 @@ function App() {
             //다른 Board로 옮기는 경우.
             setData((prev) => {
                 const sourceArray = [...prev[source.droppableId]];
+                const taskObj = sourceArray[source.index];
                 const destinationArray = [...prev[destination.droppableId]];
-                const sourceIndex = source.index;
-                const destinationIndex = destination.index;
-
-                const targetValue = sourceArray.splice(sourceIndex, 1);
-                destinationArray.splice(destinationIndex, 0, targetValue[0]);
+                sourceArray.splice(source.index, 1);
+                destinationArray.splice(destination?.index, 0, taskObj);
 
                 return {
                     ...prev,
