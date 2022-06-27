@@ -78,7 +78,6 @@ const Form = styled.form`
 const Board = ({ toDos, boardId }: IBoardProps) => {
     const setToDos = useSetRecoilState(toDoState);
     const { register, setValue, handleSubmit } = useForm<IForm>();
-
     const onValid = ({ toDo }: IForm) => {
         const newToDo = {
             id: Date.now(),

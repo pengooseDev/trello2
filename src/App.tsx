@@ -27,7 +27,7 @@ const Boards = styled.div`
 
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
-//key를 Index로 한 경우 버그 발생.
+//key를 Index로 한 경우 Complie Err 발생.
 function App() {
     const [data, setData] = useRecoilState(toDoState);
     const [dragSFX] = useSound(dragSound, {});
