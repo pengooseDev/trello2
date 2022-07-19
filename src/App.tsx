@@ -3,7 +3,7 @@ import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { toDoState } from "./atoms";
 import { useRecoilState } from "recoil";
 import Board from "./Components/Board";
-
+import { useForm } from "react-hook-form";
 import useSound from "use-sound";
 import dragSound from "./assets/audio/drag.mp3";
 import dropSound from "./assets/audio/drop.mp3";
@@ -26,7 +26,7 @@ const Boards = styled.div`
     grid-template-columns: repeat(3, 1fr);
 `;
 
-const AddBoard = styled.div`
+const AddBoard = styled.form`
     background: rgba(13, 13, 13, 0.7);
     color: white;
     margin-bottom: 30px;
@@ -68,6 +68,10 @@ const AddBoardBtn = styled.button.attrs({ value: "Add" })`
     }
 `;
 
+interface IAdd {
+    add: string;
+}
+
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
 //DND에서 id가 변하는 경우 반드시 key값과 draggableId를 동일하게 해줘야함.
 //key를 Index로 한 경우 Complie Err 발생.
@@ -75,6 +79,17 @@ function App() {
     const [data, setData] = useRecoilState(toDoState);
     const [dragSFX] = useSound(dragSound, {});
     const [dropSFX] = useSound(dropSound);
+    const { register, setValue, handleSubmit } = useForm<IAdd>();
+
+    const onValid = ({ add }: IAdd) => {
+        setData((prev) => {
+            return {
+                ...prev,
+                [add]: [],
+            };
+        });
+        setValue("add", "");
+    };
 
     const onDragEnd = (info: DropResult) => {
         console.log(info);
@@ -117,9 +132,9 @@ function App() {
 
     return (
         <Wrapper>
-            <AddBoard>
+            <AddBoard onSubmit={handleSubmit(onValid)}>
                 <AddBoardTitle>Add Board!</AddBoardTitle>
-                <AddBoardInput />
+                <AddBoardInput {...register("add")} />
                 <AddBoardBtn>Add</AddBoardBtn>
             </AddBoard>
             <DragDropContext
