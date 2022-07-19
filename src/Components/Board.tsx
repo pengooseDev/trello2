@@ -75,6 +75,27 @@ const Form = styled.form`
     }
 `;
 
+const Input = styled.input`
+    border: none;
+    border-radius: 2px;
+    padding: 10px 5px;
+    margin-right: 5px;
+`;
+
+const Btn = styled.button.attrs({ value: "Add" })`
+    border: none;
+    background: white;
+    font-weight: 600;
+    border-radius: 3px;
+    transition: 0.2s ease-in-out;
+
+    :hover {
+        background: #111;
+        color: whitesmoke;
+        cursor: pointer;
+    }
+`;
+
 const Board = ({ toDos, boardId }: IBoardProps) => {
     const setToDos = useSetRecoilState(toDoState);
     const { register, setValue, handleSubmit } = useForm<IForm>();
@@ -96,12 +117,12 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
         <Wrapper>
             <Title>{boardId}</Title>
             <Form onSubmit={handleSubmit(onValid)}>
-                <input
+                <Input
                     {...register("toDo", { required: true })}
                     type="text"
                     placeholder={`Add task on ${boardId}`}
                 />
-                <button>Click me</button>
+                <Btn>Add</Btn>
             </Form>
             <Droppable droppableId={boardId}>
                 {/*snapshot의 prop에 isDragOver은 드래그하고 있는게 현재 Droppable에 왔는지 확인 가능. */}

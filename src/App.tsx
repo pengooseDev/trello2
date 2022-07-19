@@ -10,6 +10,7 @@ import dropSound from "./assets/audio/drop.mp3";
 
 const Wrapper = styled.div`
     display: flex;
+    flex-direction: column;
     max-width: 680px;
     width: 100%;
     margin: 0 auto;
@@ -23,6 +24,48 @@ const Boards = styled.div`
     width: 100%;
     gap: 10px;
     grid-template-columns: repeat(3, 1fr);
+`;
+
+const AddBoard = styled.div`
+    background: rgba(13, 13, 13, 0.7);
+    color: white;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    border-radius: 5px;
+`;
+
+const AddBoardTitle = styled.div`
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+`;
+
+const AddBoardInput = styled.input`
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    :focus {
+        border: none;
+    }
+    :active {
+        border: none;
+    }
+`;
+
+const AddBoardBtn = styled.button.attrs({ value: "Add" })`
+    border: none;
+    background: white;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+    margin-left: 5px;
+    height: 25px;
+
+    :hover {
+        background: #111;
+        color: whitesmoke;
+        cursor: pointer;
+    }
 `;
 
 //DND 사용시 반드시 Strict 모드를 해제해줘야함.
@@ -74,6 +117,11 @@ function App() {
 
     return (
         <Wrapper>
+            <AddBoard>
+                <AddBoardTitle>Add Board!</AddBoardTitle>
+                <AddBoardInput />
+                <AddBoardBtn>Add</AddBoardBtn>
+            </AddBoard>
             <DragDropContext
                 onDragStart={() => dragSFX()}
                 onDragEnd={onDragEnd}
