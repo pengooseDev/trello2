@@ -3,9 +3,10 @@ import DragabbleCard from "./DragabbleCard";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { IToDo, toDoState } from "../atoms";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 const Wrapper = styled.div`
+    position: relative;
     padding: 10px;
     padding-top: 15px;
     background-color: ${(props) => props.theme.boardColor};
@@ -96,8 +97,19 @@ const Btn = styled.button.attrs({ value: "Add" })`
     }
 `;
 
+const EraseBoard = styled.div`
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 10px;
+
+    :hover {
+        cursor: pointer;
+    }
+`;
+
 const Board = ({ toDos, boardId }: IBoardProps) => {
-    const setToDos = useSetRecoilState(toDoState);
+    const [toDosData, setToDos] = useRecoilState(toDoState);
     const { register, setValue, handleSubmit } = useForm<IForm>();
     const onValid = ({ toDo }: IForm) => {
         const newToDo = {
@@ -113,9 +125,17 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
         setValue("toDo", "");
     };
 
+    const boardEraseHandler = (e: any) => {
+        const boardId = e.target.parentNode.firstChild.innerText;
+        const newObj = { ...toDosData };
+        delete newObj[boardId];
+        setToDos((prev) => newObj);
+    };
+
     return (
         <Wrapper>
             <Title>{boardId}</Title>
+            <EraseBoard onClick={boardEraseHandler}>❌</EraseBoard>
             <Form onSubmit={handleSubmit(onValid)}>
                 <Input
                     {...register("toDo", { required: true })}
