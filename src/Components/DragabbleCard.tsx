@@ -28,6 +28,7 @@ const Card = styled.div<{ isDragging: boolean }>`
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently*/
+    padding-right: 15px;
 `;
 
 const EraseCard = styled.div`
@@ -40,7 +41,7 @@ const EraseCard = styled.div`
     background: rgba(0, 0, 0, 0.1);
     color: tomato;
     width: 15px;
-    height: 36px;
+    height: 100%;
     padding: 10px 10px 13px 10px;
     border-radius: 0px 5px 5px 0px;
     transition: 0.2s ease-in-out;
