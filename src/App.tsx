@@ -82,7 +82,6 @@ function App() {
     const { register, setValue, handleSubmit } = useForm<IAdd>();
 
     const onValid = ({ add }: IAdd) => {
-        console.log(add);
         if (!add) {
             return;
         }
